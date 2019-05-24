@@ -32,9 +32,9 @@
 			height: 100px;
 		}
 		.circle01 {top: 0;left: calc(50% - 50px);}
-		.circle04 {top: calc(50% - 50px);right: 0;}
-		.circle03 {bottom: 0;left: calc(50% - 50px);}
 		.circle02 {left: 0;top: calc(50% - 50px);}
+		.circle03 {bottom: 0;left: calc(50% - 50px);}
+		.circle04 {top: calc(50% - 50px);right: 0;}
 		#currentDisplay {
 			position: absolute;
 		}
@@ -60,7 +60,7 @@
 	<script>
 		const circles = ['.circle01', '.circle02', '.circle03', '.circle04'];
 		const duration = 1;
-		let counter = 1;
+		let displayNumber = 1;
 		const displayElement = document.getElementById('currentCircleNumber');
 		const tl = new TimelineMax({
 			repeat: -1,
@@ -84,8 +84,9 @@
 		}
 
 		function changeDisplay() {
-			counter++;
-			displayElement.innerHTML = zeroFill( counter % ( circles.length + 1 ) );
+			displayNumber++;
+			displayNumber = displayNumber > circles.length ? 1 : displayNumber;
+			displayElement.innerHTML = zeroFill( displayNumber );
 		}
 
 		function zeroFill(val) {
