@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		* {margin: 0;padding: 0;}
+		#wrapper {
+			height: 100vh;
+		}
+		#circleContainer {
+			width: 500px;
+			height: 500px;
+			transform-origin: 50%;
+			border-radius: 50%;
+			border: 2px solid #ddd;
+			position: relative;
+		}
+		#circleContainer:before {
+			content: '';
+			display: block;
+			width: 400px;
+			height: 400px;
+			border-radius: inherit;
+			border: 2px dashed #ddd;
+		}
+		.circle {
+			position: absolute;
+			border: 1px solid black;
+			background-color: #fff;
+			border-radius: 50%;
+			width: 100px;
+			height: 100px;
+		}
+		.circle01 {top: 0;left: calc(50% - 50px);}
+		.circle02 {top: calc(50% - 50px);;right: 0;}
+		.circle03 {bottom: 0;left: calc(50% - 50px);}
+		.circle04 {left: 0;top: calc(50% - 50px);;}
+		.df {
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+	</style>
+</head>
+<body>
+	<div id="wrapper" class="df">
+		<div id="circleContainer" class="df">
+			<div class="circle circle01 df">circle01</div>
+			<div class="circle circle02 df">circle02</div>
+			<div class="circle circle03 df">circle03</div>
+			<div class="circle circle04 df">circle04</div>
+		</div>
+	</div>
+</body>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
+	<script>
+		const c01 = '.circle01';
+		const c02 = '.circle02';
+		const c03 = '.circle03';
+		const c04 = '.circle04';
+
+		const duration = 1;
+
+		rotate();
+
+		function rotate() {
+			const tl = new TimelineMax({
+				repeat: -1,
+				repeatDelay: 1,
+			});
+			tl.to('#circleContainer', duration, {
+				rotation: '+=90',
+				onComplete: tl.invalidate,
+				ease: Power2.easeOut
+			}, 0)
+			.staggerTo([c01, c02, c03, c04], duration, {
+				rotation: "-=" + 90,
+				onComplete: tl.invalidate,
+				ease: Power2.easeOut
+			}, 0, 0)
+		}
+	</script>
+</html>
