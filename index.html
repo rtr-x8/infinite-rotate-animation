@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Document</title>
+	<title>Infinite Rotate Animation</title>
 	<style>
 		* {margin: 0;padding: 0;}
 		#wrapper {
@@ -55,11 +55,7 @@
 </body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 	<script>
-		const c01 = '.circle01';
-		const c02 = '.circle02';
-		const c03 = '.circle03';
-		const c04 = '.circle04';
-
+		const circles = ['.circle01', '.circle02', '.circle03', '.circle04'];
 		const duration = 1;
 
 		rotate();
@@ -74,7 +70,7 @@
 				onComplete: tl.invalidate,
 				ease: Power2.easeOut
 			}, 0)
-			.staggerTo([c01, c02, c03, c04], duration, {
+			.staggerTo(circles, duration, {
 				rotation: "-=90",
 				onComplete: tl.invalidate,
 				ease: Power2.easeOut
