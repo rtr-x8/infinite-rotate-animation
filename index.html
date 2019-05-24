@@ -32,9 +32,12 @@
 			height: 100px;
 		}
 		.circle01 {top: 0;left: calc(50% - 50px);}
-		.circle02 {top: calc(50% - 50px);right: 0;}
+		.circle04 {top: calc(50% - 50px);right: 0;}
 		.circle03 {bottom: 0;left: calc(50% - 50px);}
-		.circle04 {left: 0;top: calc(50% - 50px);}
+		.circle02 {left: 0;top: calc(50% - 50px);}
+		#currentDisplay {
+			position: absolute;
+		}
 		.df {
 			display: flex;
 			align-items: center;
@@ -45,25 +48,28 @@
 <body>
 	<div id="wrapper" class="df">
 		<div id="circleContainer" class="df">
-			<div class="circle circle01 df">circle01</div>
-			<div class="circle circle02 df">circle02</div>
-			<div class="circle circle03 df">circle03</div>
-			<div class="circle circle04 df">circle04</div>
+			<div class="circle01 circle df">circle01</div>
+			<div class="circle02 circle df">circle02</div>
+			<div class="circle03 circle df">circle03</div>
+			<div class="circle04 circle df">circle04</div>
 		</div>
+		<p id="currentDisplay">circle<span id="currentCircleNumber">01</span></p>
 	</div>
 </body>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.3/TweenMax.min.js"></script>
 	<script>
 		const circles = ['.circle01', '.circle02', '.circle03', '.circle04'];
 		const duration = 1;
+		let counter = 1;
+		const displayElement = document.getElementById('currentCircleNumber');
+		const tl = new TimelineMax({
+			repeat: -1,
+			repeatDelay: 1,
+		});
 
 		rotate();
 
 		function rotate() {
-			const tl = new TimelineMax({
-				repeat: -1,
-				repeatDelay: 1,
-			});
 			tl.to('#circleContainer', duration, {
 				rotation: '+=90',
 				onComplete: tl.invalidate,
@@ -74,6 +80,16 @@
 				onComplete: tl.invalidate,
 				ease: Power2.easeOut
 			}, 0, 0)
+			.call(changeDisplay)
+		}
+
+		function changeDisplay() {
+			counter++;
+			displayElement.innerHTML = zeroFill( counter % ( circles.length + 1 ) );
+		}
+
+		function zeroFill(val) {
+			return val < 10 ? '0' + val : val;
 		}
 	</script>
 </html>
